@@ -5,10 +5,20 @@ namespace GSMS {
 
         public static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
-            var data = Json.readFromJson();
-            data.stock.Add("guava", 5);
-            Json.writeToJson(data);
+            // Stock.increaseQuantityOfItem("guava", 4);
+
+            // Stock.printQuantityOfAnItem("guava");
+            Stock.printQuantities();
+
+            // Stock.decreaseQuantityOfItem("guava", 4);
+            // Stock.updateQuantityOfItem("tomato", 7);
+            Stock.printQuantities();
+
+            Stock.addItem("lichi");
+            Stock.addItem("lemon", 5);
+            Stock.deleteItem("onion");
+            Stock.printQuantities();
+
         }
     }
 }
