@@ -7,7 +7,7 @@ namespace GSMS {
         {
             Console.WriteLine("Hello, World!");
             var data = Json.readFromJson();
-            data.stock.Add("carrot", 10);
+            data.stock.Add("guava", 5);
             Json.writeToJson(data);
         }
     }
