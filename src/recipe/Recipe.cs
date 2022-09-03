@@ -1,4 +1,4 @@
-using System;
+
 
 namespace GSMS
 {
@@ -31,35 +31,7 @@ namespace GSMS
             return filtered;
         }
 
-        // Loggers
-        public static void printAllRecipes(){
-            var allRecipes = Recipe.getAllRecipes();
-            
-            printRecipes(allRecipes);
-        }
-
-        public static void printRecipe(string recipeName){
-            var recipe = getRecipe(recipeName);
-            System.Console.WriteLine($"{recipeName} : ");
-            Util.printTable(recipe);
-        }
-
-        public static void printRecipes(Dictionary<string, Dictionary<string, int>> recipes){
-            foreach(KeyValuePair<string, Dictionary<string, int>> recipe in recipes){
-                System.Console.WriteLine($"{recipe.Key}'s recipe : ");
-                Util.printTable(recipe.Value);
-            }
-        }
-
-        public static void printRecipesThatContainsItem(string recipeName){
-            var recipes = Recipe.getRecipesThatContainsItem(recipeName);
-
-            if(recipes.Count < 1){
-                System.Console.WriteLine($"\nNo recipes found that contains {recipeName} \n");
-            }
-
-            Recipe.printRecipes(recipes);
-        }
+        
 
         // Updations
 
