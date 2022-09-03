@@ -7,6 +7,9 @@ namespace GSMS {
             RecipeActions.showAllRecipes();
             StockActions.showQuantities();
             RecipeActions.showRecipesThatContainsItem("rice");
+
+            var menu = new Menu();
+            menu.showMenu();
         }
     }
 }

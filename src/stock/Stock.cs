@@ -3,45 +3,74 @@ namespace GSMS {
     class Stock {
 
         // Updations
-        public static void increaseQauntityOfItem(string itemName, int count = 1){
+        public static bool increaseQuantityOfItem(string itemName, int quantity = 1){
+            if(!Stock.checkContainsItem(itemName)){
+                return false;
+            }
             var data = Json.readFromJson();
-            data.stock[itemName] = data.stock[itemName] + count;
+            data.stock[itemName] = data.stock[itemName] + quantity;
             Json.writeToJson(data);
+            return true;
         }
 
-        public static void decreaseQuantityOfItem(string itemName, int count = 1){
+        public static bool decreaseQuantityOfItem(string itemName, int quantity = 1){
+            if(!Stock.checkContainsItem(itemName)){
+                return false;
+            }
             var data = Json.readFromJson();
-            data.stock[itemName] = data.stock[itemName] - count;
+            int updatedQuantity = data.stock[itemName] - quantity;
+            if(updatedQuantity <= 0 ){
+                data.stock.Remove(itemName);
+            }
+            else data.stock[itemName] = updatedQuantity;
+
             Json.writeToJson(data);
+            return true;
         }
 
         public static void updateQuantityOfItem(string itemName, int quantity){
-            var data = Json.readFromJson();
-            data.stock[itemName] = quantity;
-            Json.writeToJson(data);
-        }
-
-        public static void addItem(string itemName, int quantity = 1){
-            if(Stock.checkContainsItem(itemName)){
+            if(!Stock.checkContainsItem(itemName)){
+                Stock.addItem(itemName, quantity);
                 return;
             }
             var data = Json.readFromJson();
-            data.stock[itemName] = quantity;
+            if(quantity <= 0 ){
+                data.stock.Remove(itemName);
+            }
+            else data.stock[itemName] = quantity;
             Json.writeToJson(data);
         }
 
-        public static void deleteItem(string itemName){
+        public static bool addItem(string itemName, int quantity = 1){
+            if(Stock.checkContainsItem(itemName)){
+                return false;
+            }
+            var data = Json.readFromJson();
+            if(quantity <= 0){
+                return false;
+            }
+            data.stock[itemName] = quantity;
+            Json.writeToJson(data);
+            return true;
+        }
+
+        public static bool deleteItem(string itemName){
             if(!Stock.checkContainsItem(itemName)){
-                return;
+                return false;
             }
             var data = Json.readFromJson();
             data.stock.Remove(itemName);
             Json.writeToJson(data);
+            return true;
         }
 
         // Getters
         public static int getQuantityOfAnItem(string itemName){
-            var data = Json.readFromJson();
+            if(!Stock.checkContainsItem(itemName)){
+                return -1;
+            }
+
+            var data = Json.readFromJson();  
             return data.stock[itemName];
         }
 
