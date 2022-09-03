@@ -42,6 +42,12 @@ namespace GSMS {
             // }
             Stock.printQuantities();
 
+            // Stock.printItemsWhereQuantityIsGreaterThan(5);
+            // Stock.printItemsWhereQuantityIsLessThan(5);
+            // Stock.printItemsWhereQuantityIsEqualTo(5);
+
+
+
 
         }
     }

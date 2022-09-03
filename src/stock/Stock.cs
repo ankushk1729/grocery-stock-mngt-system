@@ -55,6 +55,27 @@ namespace GSMS {
             return data.stock.ContainsKey(itemName);
         }
 
+        public static Dictionary<string, int> findItemsWhereQuantityIsGreaterThan(int quantity){
+            var data = Json.readFromJson();
+
+            Dictionary<string, int> filteredItems = data.stock.Where(item => item.Value > quantity).ToDictionary(item => item.Key, item => item.Value);
+            return filteredItems;
+        }
+
+        public static Dictionary<string, int> findItemsWhereQuantityIsLessThan(int quantity){
+            var data = Json.readFromJson();
+
+            Dictionary<string, int> filteredItems = data.stock.Where(item => item.Value < quantity).ToDictionary(item => item.Key, item => item.Value);
+            return filteredItems;
+        }
+
+        public static Dictionary<string, int> findItemsWhereQuantityIsEqualTo(int quantity){
+            var data = Json.readFromJson();
+
+            Dictionary<string, int> filteredItems = data.stock.Where(item => item.Value == quantity).ToDictionary(item => item.Key, item => item.Value);
+            return filteredItems;
+        }
+
         // Loggers
         public static void printQuantityOfAnItem(string itemName){
             int quantity = Stock.getQuantityOfAnItem(itemName);
@@ -66,6 +87,24 @@ namespace GSMS {
             var stock = Stock.getQuantities();
 
             Util.printTable(stock);
+        }
+
+        public static void printItemsWhereQuantityIsGreaterThan(int quantity){
+            var filteredItems = Stock.findItemsWhereQuantityIsGreaterThan(quantity);
+            System.Console.WriteLine($"Items which have quantity greater than : {quantity}");
+            Util.printTable(filteredItems);
+        }
+
+        public static void printItemsWhereQuantityIsLessThan(int quantity){
+            var filteredItems = Stock.findItemsWhereQuantityIsLessThan(quantity);
+            System.Console.WriteLine($"Items which have quantity less than : {quantity}");
+            Util.printTable(filteredItems);
+        }
+
+        public static void printItemsWhereQuantityIsEqualTo(int quantity){
+            var filteredItems = Stock.findItemsWhereQuantityIsEqualTo(quantity);
+            System.Console.WriteLine($"Items which have quantity is equal to : {quantity}");
+            Util.printTable(filteredItems);
         }
     }
 }
