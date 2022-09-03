@@ -19,6 +19,11 @@ namespace GSMS {
             Stock.deleteItem("onion");
             Stock.printQuantities();
 
+            var pastaRecipe = Recipe.getRecipe("pasta");
+            var allRecipes = Recipe.getAllRecipes();
+            
+            // Recipe.printAllRecipes();
+            Recipe.printRecipe("maggi");
         }
     }
 }
