@@ -23,20 +23,42 @@ namespace GSMS
             return data.recipes.ContainsKey(recipeName);
         }
 
+        public static Dictionary<string, Dictionary<string, int>> getRecipesThatContainsItem(string itemName){
+            var data = Json.readFromJson();
+
+            Dictionary<string, Dictionary<string, int>> filtered = data.recipes.Where(recipe => recipe.Value.ContainsKey(itemName)).ToDictionary(recipe => recipe.Key, recipe => recipe.Value);
+
+            return filtered;
+        }
+
         // Loggers
         public static void printAllRecipes(){
             var allRecipes = Recipe.getAllRecipes();
             
-            foreach(KeyValuePair<string, Dictionary<string, int>> recipe in allRecipes){
-                System.Console.WriteLine($"{recipe.Key}'s recipe : ");
-                Util.printTable(recipe.Value);
-            }
+            printRecipes(allRecipes);
         }
 
         public static void printRecipe(string recipeName){
             var recipe = getRecipe(recipeName);
             System.Console.WriteLine($"{recipeName} : ");
             Util.printTable(recipe);
+        }
+
+        public static void printRecipes(Dictionary<string, Dictionary<string, int>> recipes){
+            foreach(KeyValuePair<string, Dictionary<string, int>> recipe in recipes){
+                System.Console.WriteLine($"{recipe.Key}'s recipe : ");
+                Util.printTable(recipe.Value);
+            }
+        }
+
+        public static void printRecipesThatContainsItem(string recipeName){
+            var recipes = Recipe.getRecipesThatContainsItem(recipeName);
+
+            if(recipes.Count < 1){
+                System.Console.WriteLine($"\nNo recipes found that contains {recipeName} \n");
+            }
+
+            Recipe.printRecipes(recipes);
         }
 
         // Updations

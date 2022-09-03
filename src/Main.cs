@@ -8,7 +8,6 @@ namespace GSMS {
             // Stock.increaseQuantityOfItem("guava", 4);
 
             // Stock.printQuantityOfAnItem("guava");
-            Stock.printQuantities();
 
             // Stock.decreaseQuantityOfItem("guava", 4);
             // Stock.updateQuantityOfItem("tomato", 7);
@@ -29,7 +28,7 @@ namespace GSMS {
             // };
 
             // Recipe.createRecipe("friedRice", friedRiceItems);
-            Recipe.printAllRecipes();
+            // Recipe.printAllRecipes();
 
             // System.Console.WriteLine( Recipe.useRecipe("friedRice"));
 
@@ -37,6 +36,10 @@ namespace GSMS {
 
             // System.Console.WriteLine(Recipe.updateRecipe("friedRice", new Dictionary<string, int>(){{"onion", 7}, {"water", 2}}));
 
+            Recipe.printRecipesThatContainsItem("soda");
+            // foreach(KeyValuePair<string, Dictionary<string, int>> recipe in filteredRecipes){
+            //     System.Console.WriteLine();
+            // }
             Stock.printQuantities();
 
 
