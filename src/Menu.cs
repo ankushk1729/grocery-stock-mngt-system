@@ -63,8 +63,6 @@ namespace GSMS
                         break;
                     case 0:
                         return;
-                    default:
-                        break;
                 }
 
             }
