@@ -11,13 +11,13 @@ namespace GSMS
             return data.recipes;
         }
 
-        public static Dictionary<string, int> getRecipe(string recipeName){
+        public static KeyValuePair<bool, Dictionary<string, int>> getRecipe(string recipeName){
             var data = Json.readFromJson();
             if(!data.recipes.ContainsKey(recipeName)){
-                return null;
+                return new KeyValuePair<bool, Dictionary<string, int>>(false, new Dictionary<string, int>());
             }
 
-            return data.recipes[recipeName];
+            return new KeyValuePair<bool, Dictionary<string, int>>(true, data.recipes[recipeName]);
         }
 
         public static bool checkContainsRecipe(string recipeName){

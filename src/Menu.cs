@@ -21,7 +21,7 @@ namespace GSMS
                 System.Console.WriteLine("Select 11 to delete a recipe");
                 System.Console.WriteLine("Select 12 to use a recipe");
                 System.Console.WriteLine("Select 0 to exit");
-                var input =  int.Parse(Console.ReadLine());
+                var input =  Util.validateIntInput("Enter your choice : ", 0);
                 
                 switch(input){
                     case 1:

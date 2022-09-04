@@ -3,19 +3,8 @@ namespace GSMS
     class RecipeActions
     {
         public static void deleteRecipe(){
-            string recipeName;
-            while(true){
-                try {
-                    Console.WriteLine("Enter the name of recipe : ");
-                    recipeName = Console.ReadLine();
-                    if(recipeName == "") throw new FormatException();
-                }
-                catch(FormatException e){
-                    Log.error("Please enter a valid recipe name");
-                    continue;
-                }
-                break;
-            }
+            string recipeName = Util.validateStringInput("Please enter recipe name : ");
+        
             if(!Recipe.deleteRecipe(recipeName)){
                 Log.error("This recipe doesn't exist");
                 return;
@@ -24,19 +13,8 @@ namespace GSMS
         }
 
         public static void useRecipe(){
-            string recipeName;
-            while(true){
-                try {
-                    Console.WriteLine("Enter the name of recipe : ");
-                    recipeName = Console.ReadLine();
-                    if(recipeName == "") throw new FormatException();
-                }
-                catch(FormatException e){
-                    Log.error("Please enter a valid recipe name");
-                    continue;
-                }
-                break;
-            }
+            string recipeName = Util.validateStringInput("Please enter recipe name : ");
+           
             if(!Recipe.checkContainsRecipe(recipeName)){
                 Log.error("This recipe doesn't exist");
                 return;
@@ -61,20 +39,10 @@ namespace GSMS
         }
 
         public static void createRecipe(){
-            string recipeName;
+            string recipeName = Util.validateStringInput("Please enter recipe name : ");
+            
             Dictionary<string, int> recipeItems = new Dictionary<string, int>();
-            while(true){
-                try {
-                    Console.WriteLine("Enter the name of recipe : ");
-                    recipeName = Console.ReadLine();
-                    if(recipeName == "") throw new FormatException();
-                }
-                catch(FormatException e){
-                    Log.error("Please enter a valid recipe name");
-                    continue;
-                }
-                break;
-            }
+            
             System.Console.WriteLine("Enter the recipe items\n");
             while(true){
                 System.Console.WriteLine("Enter Y to add more or N to finish");
@@ -89,19 +57,19 @@ namespace GSMS
                     int quantity;
                     try {
                         Console.WriteLine("Enter the name of item : ");
-                        itemName = Console.ReadLine();
+                        itemName = Console.ReadLine()!;
                         if(itemName == "") throw new FormatException();
                     }
-                    catch(FormatException e){
+                    catch(FormatException){
                         Log.error("Please enter alphabets only for item name");
                         continue;
                     }
                     try {
                         Console.WriteLine("Enter the quantity : ");
-                        quantity = int.Parse(Console.ReadLine());
+                        quantity = int.Parse(Console.ReadLine()!);
                         if(quantity <= 0) throw new FormatException();
                     }
-                    catch(FormatException e){
+                    catch(FormatException){
                         Log.error("Please enter a valid number for quantity");
                         continue;
                     }
@@ -133,26 +101,15 @@ namespace GSMS
         }
 
         public static void showRecipe(){
-            string recipeName;
-            while(true){
-                try {
-                    Console.WriteLine("Enter the name of recipe : ");
-                    recipeName = Console.ReadLine();
-                    if(recipeName == "") throw new FormatException();
-                }
-                catch(FormatException e){
-                    Log.error("Please enter a valid recipe name");
-                    continue;
-                }
-                break;
-            }
+            string recipeName = Util.validateStringInput("Please enter recipe name : ");
+            
             var recipe = Recipe.getRecipe(recipeName);
-            if(recipe == null){
+            if(recipe.Key == false){
                 Log.error("No recipe found with that name");
                 return;
             }
             System.Console.WriteLine($"{recipeName} : ");
-            Util.printTable(recipe);
+            Util.printTable(recipe.Value);
         }
 
         public static void showRecipes(Dictionary<string, Dictionary<string, int>> recipes){

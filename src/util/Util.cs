@@ -12,5 +12,39 @@ namespace GSMS {
             }
             Console.Write(table.ToString());
         }
+
+        public static int validateIntInput(string message = "Please enter value", int minValue = 1){
+            int quantity;
+            while(true){
+                try {
+                    System.Console.WriteLine($"{message}");
+                    quantity = int.Parse(Console.ReadLine()!);
+                    if(quantity < minValue) throw new FormatException();
+                }
+                catch(FormatException){
+                    Log.error("Please enter a valid number");
+                    continue;
+                }
+                break;
+            }
+            return quantity;
+        }
+
+        public static string validateStringInput(string message = "Please enter value"){
+            string itemName;
+            while(true){
+                try {
+                    System.Console.WriteLine($"{message}");
+                    itemName = Console.ReadLine()!;
+                    if(itemName == "") throw new FormatException();
+                }
+                catch(FormatException){
+                    Log.error("Please enter valid name");
+                    continue;
+                }
+                break;
+            }
+            return itemName!;
+        }
     }
 }

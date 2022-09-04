@@ -5,29 +5,9 @@ namespace GSMS
         // Updations
 
         public static void increaseQuantityOfItem(){
-            string itemName;
-            int quantity;
-            while(true){
-                try {
-                    Console.WriteLine("Enter the name of item : ");
-                    itemName = Console.ReadLine();
-                    if(itemName == "") throw new FormatException();
-                }
-                catch(FormatException e){
-                    Log.error("Please enter alphabets only for item name");
-                    continue;
-                }
-                try {
-                    Console.WriteLine("Enter the quantity which should be added : ");
-                    quantity = int.Parse(Console.ReadLine());
-                    if(quantity <= 0) throw new FormatException();
-                }
-                catch(FormatException e){
-                    Log.error("Please enter a valid number for quantity");
-                    continue;
-                }
-                break;
-            }
+            string itemName = Util.validateStringInput("Please enter item name : ");
+            int quantity = Util.validateIntInput("Please enter the quantity which should be added : ");
+            
 
             if(!Stock.increaseQuantityOfItem(itemName, quantity)){
                 Log.error("This item doesn't exist in stock, try adding it first");
@@ -38,29 +18,8 @@ namespace GSMS
         }
         
         public static void decreaseQuantityOfItem(){
-            string itemName;
-            int quantity;
-            while(true){
-                try {
-                    Console.WriteLine("Enter the name of item : ");
-                    itemName = Console.ReadLine();
-                    if(itemName == "") throw new FormatException();
-                }
-                catch(FormatException e){
-                    Log.error("Please enter alphabets only for item name");
-                    continue;
-                }
-                try {
-                    Console.WriteLine("Enter the quantity which should be subtracted : ");
-                    quantity = int.Parse(Console.ReadLine());
-                    if(quantity <= 0) throw new FormatException();
-                }
-                catch(FormatException e){
-                    Log.error("Please enter a valid number for quantity");
-                    continue;
-                }
-                break;
-            }
+            string itemName = Util.validateStringInput("Please enter item name : ");
+            int quantity = Util.validateIntInput("Please enter the quantity which should be subtracted : ");
 
             if(!Stock.decreaseQuantityOfItem(itemName, quantity)){
                 Log.error("This item doesn't exist in stock, try adding it first");
@@ -71,29 +30,8 @@ namespace GSMS
         }
 
         public static void addItem(){
-            string itemName;
-            int quantity;
-            while(true){
-                try {
-                    Console.WriteLine("Enter the name of item : ");
-                    itemName = Console.ReadLine();
-                    if(itemName == "") throw new FormatException();
-                }
-                catch(FormatException e){
-                    Log.error("Please enter alphabets only for item name");
-                    continue;
-                }
-                try {
-                    Console.WriteLine("Enter the quantity : ");
-                    quantity = int.Parse(Console.ReadLine());
-                    if(quantity <= 0) throw new FormatException();
-                }
-                catch(FormatException e){
-                    Log.error("Please enter a valid number for quantity");
-                    continue;
-                }
-                break;
-            }
+            string itemName = Util.validateStringInput("Please enter item name : ");
+            int quantity = Util.validateIntInput("Please enter the quantity : ");
 
             if(!Stock.addItem(itemName, quantity)){
                 Log.error("This item already exist in stock");
@@ -105,19 +43,7 @@ namespace GSMS
 
 
         public static void deleteItem(){
-            string itemName;
-            while(true){
-                try {
-                    Console.WriteLine("Enter the name of item : ");
-                    itemName = Console.ReadLine();
-                    if(itemName == "") throw new FormatException();
-                }
-                catch(FormatException e){
-                    Log.error("Please enter alphabets only for item name");
-                    continue;
-                }
-                break;
-            }
+            string itemName = Util.validateStringInput("Please enter item name : ");
 
             if(!Stock.deleteItem(itemName)){
                 Log.error("This item doesn't exist in stock");
@@ -128,29 +54,8 @@ namespace GSMS
         }
 
          public static void updateQuantityOfItem(){
-            string itemName;
-            int quantity;
-            while(true){
-                try {
-                    Console.WriteLine("Enter the name of item : ");
-                    itemName = Console.ReadLine();
-                    if(itemName == "") throw new FormatException();
-                }
-                catch(FormatException e){
-                    Log.error("Please enter alphabets only for item name");
-                    continue;
-                }
-                try {
-                    Console.WriteLine("Enter the quantity : ");
-                    quantity = int.Parse(Console.ReadLine());
-                    if(quantity <= 0) throw new FormatException();
-                }
-                catch(FormatException e){
-                    Log.error("Please enter a valid number for quantity");
-                    continue;
-                }
-                break;
-            }
+            string itemName = Util.validateStringInput("Please enter item name : ");
+            int quantity = Util.validateIntInput("Please enter the quantity : ");
 
             Stock.updateQuantityOfItem(itemName, quantity);
             Log.success("Successfully updated item to stock");
@@ -158,19 +63,9 @@ namespace GSMS
 
         // Loggers
         public static void showQuantityOfAnItem(){
-            string itemName;
-            while(true){
-                try {
-                    Console.WriteLine("Enter the name of item : ");
-                    itemName = Console.ReadLine();
-                    if(itemName == "") throw new FormatException();
-                }
-                catch(FormatException e){
-                    Log.error("Please enter a valid item name");
-                    continue;
-                }
-                break;
-            }
+
+            string itemName = Util.validateStringInput("Please enter the item name : ");
+            
             int quantity = Stock.getQuantityOfAnItem(itemName);
 
             if(quantity == -1) {

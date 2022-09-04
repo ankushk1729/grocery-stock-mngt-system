@@ -7,7 +7,7 @@ namespace GSMS {
             var jsonData = File.ReadAllText(@"stock.json");
 
             var resultData = JsonConvert.DeserializeObject<JsonData>(jsonData);
-            return resultData;
+            return resultData!;
 
         }
 
