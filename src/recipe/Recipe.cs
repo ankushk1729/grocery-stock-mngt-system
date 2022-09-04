@@ -13,6 +13,9 @@ namespace GSMS
 
         public static Dictionary<string, int> getRecipe(string recipeName){
             var data = Json.readFromJson();
+            if(!data.recipes.ContainsKey(recipeName)){
+                return null;
+            }
 
             return data.recipes[recipeName];
         }
@@ -72,15 +75,25 @@ namespace GSMS
             return true;
         }
 
-        public static bool useRecipe(string recipeName, int servings = 1){
+        public static Tuple<bool, Dictionary<string, int>, Dictionary<string, int>> useRecipe(string recipeName, int servings = 1){
             var data = Json.readFromJson();
+            Dictionary<string, int> nonExistingItems = new Dictionary<string, int>();
+            Dictionary<string, int> insufficientItems = new Dictionary<string, int>();
 
             var recipe = data.recipes[recipeName];
 
             foreach(KeyValuePair<string, int> item in recipe){
-                if(!Stock.checkContainsItem(item.Key) || data.stock[item.Key] < servings*item.Value){
-                    return false;
+                if(!Stock.checkContainsItem(item.Key)){
+                    nonExistingItems.Add(item.Key, item.Value);
+                    continue;
                 }
+                 if(data.stock[item.Key] < servings*item.Value){
+                    insufficientItems.Add(item.Key, item.Value);
+                }
+            }
+
+            if(insufficientItems.Count > 0 || nonExistingItems.Count > 0){
+                return new Tuple<bool, Dictionary<string, int>, Dictionary<string, int>>(false, nonExistingItems, insufficientItems);
             }
 
             foreach(KeyValuePair<string, int> item in recipe){
@@ -88,8 +101,7 @@ namespace GSMS
             }
 
             Json.writeToJson(data);
-
-            return true;
+            return new Tuple<bool, Dictionary<string, int>, Dictionary<string, int>>(true, insufficientItems, nonExistingItems);
         }
     }
 }

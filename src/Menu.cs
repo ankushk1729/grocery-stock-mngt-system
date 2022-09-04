@@ -20,6 +20,7 @@ namespace GSMS
                 System.Console.WriteLine("Select 10 to create a recipe");
                 System.Console.WriteLine("Select 11 to delete a recipe");
                 System.Console.WriteLine("Select 12 to use a recipe");
+                System.Console.WriteLine("Select 0 to exit");
                 var input =  int.Parse(Console.ReadLine());
                 
                 switch(input){
@@ -45,22 +46,23 @@ namespace GSMS
                     case 7:
                         StockActions.updateQuantityOfItem();
                         break;
-                    // case 8:
-                    //     RecipeActions.showAllRecipes();
-                    //     break;
-                    // case 9:
-                    //     RecipeActions.showRecipe();
-                    //     break;
-
-                    // case 10:
-                    //     Recipe.createRecipe();
-                    //     break;
-                    // case 11:
-                    //     Recipe.deleteRecipe();
-                    //     break;
-                    // case 12:
-                    //     Recipe.useRecipe();
-                    //     break;
+                    case 8:
+                        RecipeActions.showAllRecipes();
+                        break;
+                    case 9:
+                        RecipeActions.showRecipe();
+                        break;
+                    case 10:
+                        RecipeActions.createRecipe();
+                        break;
+                    case 11:
+                        RecipeActions.deleteRecipe();
+                        break;
+                    case 12:
+                        RecipeActions.useRecipe();
+                        break;
+                    case 0:
+                        return;
                     default:
                         break;
                 }

@@ -1,13 +1,9 @@
-﻿
+﻿// Todo - Create a util function for taking and validating string and int input
 namespace GSMS {
     class Init {
 
         public static void Main(string[] args)
         {
-            RecipeActions.showAllRecipes();
-            StockActions.showQuantities();
-            RecipeActions.showRecipesThatContainsItem("rice");
-
             var menu = new Menu();
             menu.showMenu();
         }
