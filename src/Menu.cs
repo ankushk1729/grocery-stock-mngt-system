@@ -20,6 +20,7 @@ namespace GSMS
                 System.Console.WriteLine("Select 10 to create a recipe");
                 System.Console.WriteLine("Select 11 to delete a recipe");
                 System.Console.WriteLine("Select 12 to use a recipe");
+                System.Console.WriteLine("Select 13 to update a recipe");
                 System.Console.WriteLine("Select 0 to exit");
                 var input =  Util.validateIntInput("Enter your choice : ", 0);
                 
@@ -60,6 +61,9 @@ namespace GSMS
                         break;
                     case 12:
                         RecipeActions.useRecipe();
+                        break;
+                    case 13:
+                        RecipeActions.updateRecipe();
                         break;
                     case 0:
                         return;
