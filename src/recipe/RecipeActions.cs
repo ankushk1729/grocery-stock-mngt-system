@@ -76,13 +76,14 @@ namespace GSMS
 
         public static void useRecipe(){
             string recipeName = Util.validateStringInput("Please enter recipe name : ");
-           
+            int servings = Util.validateIntInput("Please enter the number of servings");
+
             if(!Recipe.checkContainsRecipe(recipeName)){
                 Log.error("This recipe doesn't exist");
                 return;
             }
 
-            Tuple<bool, Dictionary<string, int>, Dictionary<string, int>> result =  Recipe.useRecipe(recipeName);
+            Tuple<bool, Dictionary<string, int>, Dictionary<string, int>> result =  Recipe.useRecipe(recipeName, servings);
 
             if(result.Item1 == false){
                 Log.error("Couldn't use the recipe");
