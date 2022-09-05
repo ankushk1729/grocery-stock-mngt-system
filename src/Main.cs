@@ -1,5 +1,4 @@
-﻿// Todo - Create a util function for taking and validating string and int input
-namespace GSMS {
+﻿namespace GSMS {
     class Init {
 
         public static void Main(string[] args)
