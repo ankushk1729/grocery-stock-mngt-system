@@ -1,1 +1,1 @@
-{"stock":{"carrot":10,"guava":18,"lichi":2,"lemon":1,"ginger":4,"garlic":3,"water":3,"onion":2,"rice":2,"ladoo":2},"recipes":{"fried rice":{"rice":1,"water":1},"onion rice":{"onion":2,"rice":2,"lemon":1,"water":1}}}
+{"stock":{"carrot":10,"guava":10,"lichi":2,"ginger":4,"garlic":3,"water":3,"onion":2,"rice":0,"wheat":4,"mango":3,"apple":1},"recipes":{"fried rice":{"rice":1,"water":1},"onion rice":{"onion":2,"rice":2,"lemon":1,"water":1},"lemon rice":{"lemon":2,"rice":1},"fruit chat":{"mango":1,"apple":1,"guava":2}}}

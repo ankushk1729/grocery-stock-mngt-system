@@ -1,6 +1,6 @@
 using System;
 namespace GSMS {
-    class Stock {
+    public class Stock {
 
         // Updations
         public static bool increaseQuantityOfItem(string itemName, int quantity = 1){

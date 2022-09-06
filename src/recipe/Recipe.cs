@@ -2,7 +2,7 @@
 
 namespace GSMS
 {
-    class Recipe
+    public class Recipe
     {
         // Getters
         public static Dictionary<string, Dictionary<string, int>> getAllRecipes(){
