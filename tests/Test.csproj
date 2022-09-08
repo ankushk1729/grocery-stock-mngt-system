@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GSMS.csproj" />
+    <ProjectReference Include="..\main\GSMS.csproj" />
   </ItemGroup>
 
 </Project>
