@@ -5,7 +5,7 @@ public class Tests
     [Test]
     public void Test1()
     {
-        var result = GSMS.Stock.getQuantityOfAnItem("carrot");
+        var result = Stock.getQuantityOfAnItem("carrot");
         Assert.IsInstanceOf<int>(result);
     }
 }

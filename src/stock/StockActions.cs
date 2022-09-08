@@ -87,22 +87,51 @@ namespace GSMS
             Util.printTable(stock);
         }
 
-        public static void showItemsWhereQuantityIsGreaterThan(int quantity){
+        public static void showItemsWhereQuantityIsGreaterThan(){
+            int quantity = Util.validateIntInput("Enter the quantity :");
             var filteredItems = Stock.findItemsWhereQuantityIsGreaterThan(quantity);
             System.Console.WriteLine($"Items which have quantity greater than : {quantity}");
             Util.printTable(filteredItems);
         }
 
-        public static void showItemsWhereQuantityIsLessThan(int quantity){
+        public static void showItemsWhereQuantityIsLessThan(){
+            int quantity = Util.validateIntInput("Enter the quantity :");
             var filteredItems = Stock.findItemsWhereQuantityIsLessThan(quantity);
             System.Console.WriteLine($"Items which have quantity less than : {quantity}");
             Util.printTable(filteredItems);
         }
 
-        public static void showItemsWhereQuantityIsEqualTo(int quantity){
+        public static void showItemsWhereQuantityIsEqualTo(){
+            int quantity = Util.validateIntInput("Enter the quantity :");
             var filteredItems = Stock.findItemsWhereQuantityIsEqualTo(quantity);
             System.Console.WriteLine($"Items which have quantity is equal to : {quantity}");
             Util.printTable(filteredItems);
+        }
+
+         public static void showItemsWhereQuantity(){
+            while(true){
+                System.Console.WriteLine("Select 1 to find items where quantity is greater than");
+                System.Console.WriteLine("Select 2 to find items where quantity is lesser than");
+                System.Console.WriteLine("Select 3 to find items where quantity is equal to");
+                System.Console.WriteLine("Select 0 to exit");
+                int choice = Util.validateIntInput("Enter your choice : ", 0);
+
+                switch(choice) {
+                    case 1 :
+                        StockActions.showItemsWhereQuantityIsGreaterThan();
+                        break;
+                    case 2:
+                        StockActions.showItemsWhereQuantityIsLessThan();
+                        break;
+                    case 3:
+                        StockActions.showItemsWhereQuantityIsEqualTo();
+                        break;
+                    case 0:
+                        return;
+                    default:
+                        break;
+                }
+            }
         }
     }
 }

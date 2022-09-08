@@ -147,14 +147,17 @@ namespace GSMS
             }
         }
 
-        public static void showRecipesThatContainsItem(string recipeName){
+        public static void showRecipesThatContainsItem(){
+            string recipeName = Util.validateStringInput("Enter item name : ");
             var recipes = Recipe.getRecipesThatContainsItem(recipeName);
 
             if(recipes.Count < 1){
-                System.Console.WriteLine($"\nNo recipes found that contains {recipeName} \n");
+                Log.error($"No recipes found that contains {recipeName}");
             }
 
             RecipeActions.showRecipes(recipes);
         }
+
+       
     }
 }
