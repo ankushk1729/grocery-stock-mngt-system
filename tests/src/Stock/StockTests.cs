@@ -10,6 +10,23 @@ public class StockTests
 
 
     [Test]
+    [TestCase("mango", 4)]
+    [TestCase("lemon", 69)]
+    public void FindItemsWhereQuantityIsEqualTo_WhenItemExists_ReturnsCorrectItem(string itemName, int quantity){
+        var fakeJson = new Mock<IJson>();
+        _stock = new Stock(fakeJson!.Object);
+
+        var fakeJsonData = new JsonData(){stock = new Dictionary<string, int>(){{itemName, quantity}}};
+        fakeJson!.Setup(json => json.readFromJson()).Returns(fakeJsonData);
+
+        var items = _stock!.findItemsWhereQuantityIsEqualTo(quantity);
+
+        Assert.That(items[itemName], Is.EqualTo(quantity));
+    }
+
+    
+
+    [Test]
     [TestCase("onion")]
     [TestCase("wheat")]
     public void DeleteItem_WhenItemExists_ShouldDeleteTheItem(string itemName)
