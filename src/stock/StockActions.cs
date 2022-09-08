@@ -2,14 +2,19 @@ namespace GSMS
 {
     class StockActions
     {
+        private Stock _stock;
+        public StockActions(){
+            _stock = new Stock(new Json());
+        }
+
         // Updations
 
-        public static void increaseQuantityOfItem(){
+        public void increaseQuantityOfItem(){
             string itemName = Util.validateStringInput("Please enter item name : ");
             int quantity = Util.validateIntInput("Please enter the quantity which should be added : ");
             
 
-            if(!Stock.increaseQuantityOfItem(itemName, quantity)){
+            if(!_stock.increaseQuantityOfItem(itemName, quantity)){
                 Log.error("This item doesn't exist in stock, try adding it first");
                 return;
             }
@@ -17,11 +22,11 @@ namespace GSMS
             Log.success("Successfully updated the stock");
         }
         
-        public static void decreaseQuantityOfItem(){
+        public void decreaseQuantityOfItem(){
             string itemName = Util.validateStringInput("Please enter item name : ");
             int quantity = Util.validateIntInput("Please enter the quantity which should be subtracted : ");
 
-            if(!Stock.decreaseQuantityOfItem(itemName, quantity)){
+            if(!_stock.decreaseQuantityOfItem(itemName, quantity)){
                 Log.error("This item doesn't exist in stock, try adding it first");
                 return;
             }
@@ -29,11 +34,11 @@ namespace GSMS
             Log.success("Successfully updated the stock");
         }
 
-        public static void addItem(){
+        public void addItem(){
             string itemName = Util.validateStringInput("Please enter item name : ");
             int quantity = Util.validateIntInput("Please enter the quantity : ");
 
-            if(!Stock.addItem(itemName, quantity)){
+            if(!_stock.addItem(itemName, quantity)){
                 Log.error("This item already exist in stock");
                 return;
             }
@@ -42,10 +47,10 @@ namespace GSMS
         }
 
 
-        public static void deleteItem(){
+        public void deleteItem(){
             string itemName = Util.validateStringInput("Please enter item name : ");
 
-            if(!Stock.deleteItem(itemName)){
+            if(!_stock.deleteItem(itemName)){
                 Log.error("This item doesn't exist in stock");
                 return;
             }
@@ -53,20 +58,20 @@ namespace GSMS
             Log.success("Successfully deleted item from stock");
         }
 
-         public static void updateQuantityOfItem(){
+         public void updateQuantityOfItem(){
             string itemName = Util.validateStringInput("Please enter item name : ");
             int quantity = Util.validateIntInput("Please enter the quantity : ");
 
-            Stock.updateQuantityOfItem(itemName, quantity);
+            _stock.updateQuantityOfItem(itemName, quantity);
             Log.success("Successfully updated item to stock");
         }
 
         // Loggers
-        public static void showQuantityOfAnItem(){
+        public void showQuantityOfAnItem(){
 
             string itemName = Util.validateStringInput("Please enter the item name : ");
             
-            int quantity = Stock.getQuantityOfAnItem(itemName);
+            int quantity = _stock.getQuantityOfAnItem(itemName);
 
             if(quantity == -1) {
                 Log.error("No such item in stock");
@@ -76,8 +81,8 @@ namespace GSMS
             Util.printTable(new Dictionary<string, int>(){{itemName, quantity}});
         }
 
-        public static void showQuantities(){
-            var stock = Stock.getQuantities();
+        public void showQuantities(){
+            var stock = _stock.getQuantities();
 
             if(stock.Count < 1){
                 System.Console.WriteLine("Stock is currently empty");
@@ -87,28 +92,28 @@ namespace GSMS
             Util.printTable(stock);
         }
 
-        public static void showItemsWhereQuantityIsGreaterThan(){
+        public void showItemsWhereQuantityIsGreaterThan(){
             int quantity = Util.validateIntInput("Enter the quantity :");
-            var filteredItems = Stock.findItemsWhereQuantityIsGreaterThan(quantity);
+            var filteredItems = _stock.findItemsWhereQuantityIsGreaterThan(quantity);
             System.Console.WriteLine($"Items which have quantity greater than : {quantity}");
             Util.printTable(filteredItems);
         }
 
-        public static void showItemsWhereQuantityIsLessThan(){
+        public void showItemsWhereQuantityIsLessThan(){
             int quantity = Util.validateIntInput("Enter the quantity :");
-            var filteredItems = Stock.findItemsWhereQuantityIsLessThan(quantity);
+            var filteredItems = _stock.findItemsWhereQuantityIsLessThan(quantity);
             System.Console.WriteLine($"Items which have quantity less than : {quantity}");
             Util.printTable(filteredItems);
         }
 
-        public static void showItemsWhereQuantityIsEqualTo(){
+        public void showItemsWhereQuantityIsEqualTo(){
             int quantity = Util.validateIntInput("Enter the quantity :");
-            var filteredItems = Stock.findItemsWhereQuantityIsEqualTo(quantity);
+            var filteredItems = _stock.findItemsWhereQuantityIsEqualTo(quantity);
             System.Console.WriteLine($"Items which have quantity is equal to : {quantity}");
             Util.printTable(filteredItems);
         }
 
-         public static void showItemsWhereQuantity(){
+         public void showItemsWhereQuantity(){
             while(true){
                 System.Console.WriteLine("Select 1 to find items where quantity is greater than");
                 System.Console.WriteLine("Select 2 to find items where quantity is lesser than");
@@ -118,13 +123,13 @@ namespace GSMS
 
                 switch(choice) {
                     case 1 :
-                        StockActions.showItemsWhereQuantityIsGreaterThan();
+                        showItemsWhereQuantityIsGreaterThan();
                         break;
                     case 2:
-                        StockActions.showItemsWhereQuantityIsLessThan();
+                        showItemsWhereQuantityIsLessThan();
                         break;
                     case 3:
-                        StockActions.showItemsWhereQuantityIsEqualTo();
+                        showItemsWhereQuantityIsEqualTo();
                         break;
                     case 0:
                         return;

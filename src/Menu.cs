@@ -2,6 +2,14 @@ namespace GSMS
 {
     class Menu
     {
+        private RecipeActions? _recipeActions;
+        private StockActions? _stockActions;
+
+        public Menu(){
+            _recipeActions = new RecipeActions();
+            _stockActions = new StockActions();
+        }
+        
         public void showMenu(){
             Console.ForegroundColor = ConsoleColor.Blue;
             System.Console.WriteLine("Grocery Stock Management System");
@@ -28,49 +36,49 @@ namespace GSMS
                 
                 switch(input){
                     case 1:
-                        StockActions.showQuantities();
+                        _stockActions!.showQuantities();
                         break;
                     case 2:
-                        StockActions.showQuantityOfAnItem();
+                        _stockActions!.showQuantityOfAnItem();
                         break;
                     case 3:
-                        StockActions.showItemsWhereQuantity();
+                        _stockActions!.showItemsWhereQuantity();
                         break;
                     case 4:
-                        StockActions.addItem();
+                        _stockActions!.addItem();
                         break;    
                     case 5:
-                        StockActions.deleteItem();
+                        _stockActions!.deleteItem();
                         break;
                     case 6:
-                        StockActions.increaseQuantityOfItem();
+                        _stockActions!.increaseQuantityOfItem();
                         break;
                     case 7:
-                        StockActions.decreaseQuantityOfItem();
+                        _stockActions!.decreaseQuantityOfItem();
                         break;
                     case 8:
-                        StockActions.updateQuantityOfItem();
+                        _stockActions!.updateQuantityOfItem();
                         break;
                     case 9:
-                        RecipeActions.showAllRecipes();
+                        _recipeActions!.showAllRecipes();
                         break;
                     case 10:
-                        RecipeActions.showRecipesThatContainsItem();
+                        _recipeActions!.showRecipesThatContainsItem();
                         break;
                     case 11:
-                        RecipeActions.showRecipe();
+                        _recipeActions!.showRecipe();
                         break;
                     case 12:
-                        RecipeActions.createRecipe();
+                        _recipeActions!.createRecipe();
                         break;
                     case 13:
-                        RecipeActions.deleteRecipe();
+                        _recipeActions!.deleteRecipe();
                         break;
                     case 14:
-                        RecipeActions.useRecipe();
+                        _recipeActions!.useRecipe();
                         break;
                     case 15:
-                        RecipeActions.updateRecipe();
+                        _recipeActions!.updateRecipe();
                         break;
                     case 0:
                         return;

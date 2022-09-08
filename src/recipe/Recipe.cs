@@ -4,15 +4,21 @@ namespace GSMS
 {
     public class Recipe
     {
+        private IJson json;
+        private Stock _stock;
+        public Recipe(IJson Json){
+            json = Json;
+            _stock = new Stock(json);
+        }
         // Getters
-        public static Dictionary<string, Dictionary<string, int>> getAllRecipes(){
-            var data = Json.readFromJson();
+        public Dictionary<string, Dictionary<string, int>> getAllRecipes(){
+            var data = json.readFromJson();
 
             return data.recipes;
         }
 
-        public static KeyValuePair<bool, Dictionary<string, int>> getRecipe(string recipeName){
-            var data = Json.readFromJson();
+        public KeyValuePair<bool, Dictionary<string, int>> getRecipe(string recipeName){
+            var data = json.readFromJson();
             if(!data.recipes.ContainsKey(recipeName)){
                 return new KeyValuePair<bool, Dictionary<string, int>>(false, new Dictionary<string, int>());
             }
@@ -20,14 +26,14 @@ namespace GSMS
             return new KeyValuePair<bool, Dictionary<string, int>>(true, data.recipes[recipeName]);
         }
 
-        public static bool checkContainsRecipe(string recipeName){
-            var data = Json.readFromJson();
+        public bool checkContainsRecipe(string recipeName){
+            var data = json.readFromJson();
             
             return data.recipes.ContainsKey(recipeName);
         }
 
-        public static Dictionary<string, Dictionary<string, int>> getRecipesThatContainsItem(string itemName){
-            var data = Json.readFromJson();
+        public Dictionary<string, Dictionary<string, int>> getRecipesThatContainsItem(string itemName){
+            var data = json.readFromJson();
 
             Dictionary<string, Dictionary<string, int>> filtered = data.recipes.Where(recipe => recipe.Value.ContainsKey(itemName)).ToDictionary(recipe => recipe.Key, recipe => recipe.Value);
 
@@ -38,31 +44,31 @@ namespace GSMS
 
         // Updations
 
-        public static void createRecipe(string recipeName, Dictionary<string, int> items){
-            var data = Json.readFromJson();
+        public void createRecipe(string recipeName, Dictionary<string, int> items){
+            var data = json.readFromJson();
 
             data.recipes.Add(recipeName, items);
 
-            Json.writeToJson(data);
+            json.writeToJson(data);
         }
 
-        public static bool deleteRecipe(string recipeName){
-            var data = Json.readFromJson();
-            if(!Recipe.checkContainsRecipe(recipeName)){
+        public bool deleteRecipe(string recipeName){
+            var data = json.readFromJson();
+            if(!checkContainsRecipe(recipeName)){
                 return false;
             }
             data.recipes.Remove(recipeName);
-            Json.writeToJson(data);
+            json.writeToJson(data);
 
             return true;
         }
 
-        public static bool updateRecipe(string recipeName, Dictionary<string, int> items){
-            if(!Recipe.checkContainsRecipe(recipeName)){
+        public bool updateRecipe(string recipeName, Dictionary<string, int> items){
+            if(!checkContainsRecipe(recipeName)){
                 return false;
             }
 
-            var data = Json.readFromJson();
+            var data = json.readFromJson();
             foreach(KeyValuePair<string, int> item in items){
                 if(!data.recipes[recipeName].ContainsKey(item.Key)){
                     data.recipes[recipeName].Add(item.Key, item.Value);
@@ -71,19 +77,19 @@ namespace GSMS
                     data.recipes[recipeName][item.Key] = item.Value;
                 }
             }
-            Json.writeToJson(data);
+            json.writeToJson(data);
             return true;
         }
 
-        public static Tuple<bool, Dictionary<string, int>, Dictionary<string, int>> useRecipe(string recipeName, int servings = 1){
-            var data = Json.readFromJson();
+        public Tuple<bool, Dictionary<string, int>, Dictionary<string, int>> useRecipe(string recipeName, int servings = 1){
+            var data = json.readFromJson();
             Dictionary<string, int> nonExistingItems = new Dictionary<string, int>();
             Dictionary<string, int> insufficientItems = new Dictionary<string, int>();
 
             var recipe = data.recipes[recipeName];
 
             foreach(KeyValuePair<string, int> item in recipe){
-                if(!Stock.checkContainsItem(item.Key)){
+                if(!_stock.checkContainsItem(item.Key)){
                     nonExistingItems.Add(item.Key, item.Value);
                     continue;
                 }
@@ -100,7 +106,7 @@ namespace GSMS
                 data.stock[item.Key] -= servings*item.Value;
             }
 
-            Json.writeToJson(data);
+            json.writeToJson(data);
             return new Tuple<bool, Dictionary<string, int>, Dictionary<string, int>>(true, insufficientItems, nonExistingItems);
         }
     }

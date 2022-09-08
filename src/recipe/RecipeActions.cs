@@ -1,10 +1,15 @@
 namespace GSMS 
 {
-    class RecipeActions
+    public class RecipeActions
     {
+        private Recipe _recipe;
+
+        public RecipeActions(){
+            _recipe = new Recipe(new Json());
+        }
 
         // Utils
-        public static Dictionary<string, int> takeRecipeInput(){
+        public Dictionary<string, int> takeRecipeInput(){
             Dictionary<string, int> recipeItems = new Dictionary<string, int>();
             while(true){
                 System.Console.WriteLine("Enter Y to add more or N to finish");
@@ -43,10 +48,10 @@ namespace GSMS
         }
 
         // Updations
-        public static void updateRecipe(){
+        public void updateRecipe(){
             string recipeName = Util.validateStringInput("Please enter recipe name : ");
 
-            if(!Recipe.checkContainsRecipe(recipeName)){
+            if(!_recipe.checkContainsRecipe(recipeName)){
                 Log.error("No recipe exist with that name");
                 return;
             }
@@ -55,7 +60,7 @@ namespace GSMS
 
             Dictionary<string, int> recipeItems = takeRecipeInput();
 
-            if(!Recipe.updateRecipe(recipeName, recipeItems)){
+            if(!_recipe.updateRecipe(recipeName, recipeItems)){
                 Log.error("Failed to update the recipe");
                 return;
             }
@@ -64,26 +69,26 @@ namespace GSMS
             
         }
 
-        public static void deleteRecipe(){
+        public void deleteRecipe(){
             string recipeName = Util.validateStringInput("Please enter recipe name : ");
         
-            if(!Recipe.deleteRecipe(recipeName)){
+            if(!_recipe.deleteRecipe(recipeName)){
                 Log.error("This recipe doesn't exist");
                 return;
             }
             Log.success("Successfully deleted the recipe");
         }
 
-        public static void useRecipe(){
+        public void useRecipe(){
             string recipeName = Util.validateStringInput("Please enter recipe name : ");
             int servings = Util.validateIntInput("Please enter the number of servings");
 
-            if(!Recipe.checkContainsRecipe(recipeName)){
+            if(!_recipe.checkContainsRecipe(recipeName)){
                 Log.error("This recipe doesn't exist");
                 return;
             }
 
-            Tuple<bool, Dictionary<string, int>, Dictionary<string, int>> result =  Recipe.useRecipe(recipeName, servings);
+            Tuple<bool, Dictionary<string, int>, Dictionary<string, int>> result =  _recipe.useRecipe(recipeName, servings);
 
             if(result.Item1 == false){
                 Log.error("Couldn't use the recipe");
@@ -101,7 +106,7 @@ namespace GSMS
             Log.success("Successfully used the recipe");
         }
 
-        public static void createRecipe(){
+        public void createRecipe(){
             string recipeName = Util.validateStringInput("Please enter recipe name : ");
             
             Dictionary<string, int> recipeItems = takeRecipeInput();
@@ -110,28 +115,28 @@ namespace GSMS
                 return;
             }
 
-            Recipe.createRecipe(recipeName, recipeItems);
+            _recipe.createRecipe(recipeName, recipeItems);
 
             Log.success("\nSuccessfully added the recipe");
             
         }
 
         // Getters
-        public static void showAllRecipes(){
-            var recipes = Recipe.getAllRecipes();
+        public void showAllRecipes(){
+            var recipes = _recipe.getAllRecipes();
 
             if(recipes.Count < 1){
                 System.Console.WriteLine("No recipes");
                 return;
             }
 
-            RecipeActions.showRecipes(recipes);
+            showRecipes(recipes);
         }
 
-        public static void showRecipe(){
+        public void showRecipe(){
             string recipeName = Util.validateStringInput("Please enter recipe name : ");
             
-            var recipe = Recipe.getRecipe(recipeName);
+            var recipe = _recipe.getRecipe(recipeName);
             if(recipe.Key == false){
                 Log.error("No recipe found with that name");
                 return;
@@ -140,22 +145,22 @@ namespace GSMS
             Util.printTable(recipe.Value);
         }
 
-        public static void showRecipes(Dictionary<string, Dictionary<string, int>> recipes){
+        public void showRecipes(Dictionary<string, Dictionary<string, int>> recipes){
             foreach(KeyValuePair<string, Dictionary<string, int>> recipe in recipes){
                 System.Console.WriteLine($"{recipe.Key}'s recipe : ");
                 Util.printTable(recipe.Value);
             }
         }
 
-        public static void showRecipesThatContainsItem(){
+        public void showRecipesThatContainsItem(){
             string recipeName = Util.validateStringInput("Enter item name : ");
-            var recipes = Recipe.getRecipesThatContainsItem(recipeName);
+            var recipes = _recipe.getRecipesThatContainsItem(recipeName);
 
             if(recipes.Count < 1){
                 Log.error($"No recipes found that contains {recipeName}");
             }
 
-            RecipeActions.showRecipes(recipes);
+            showRecipes(recipes);
         }
 
        

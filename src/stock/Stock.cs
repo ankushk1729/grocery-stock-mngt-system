@@ -1,105 +1,110 @@
 using System;
 namespace GSMS {
-    public class Stock {
+    public class Stock
+    {
+        private IJson json;
+        public Stock(IJson Json){
+            json = Json;
+        }
 
         // Updations
-        public static bool increaseQuantityOfItem(string itemName, int quantity = 1){
-            if(!Stock.checkContainsItem(itemName)){
+        public bool increaseQuantityOfItem(string itemName, int quantity = 1){
+            if(!checkContainsItem(itemName)){
                 return false;
             }
-            var data = Json.readFromJson();
+            var data = json.readFromJson();
             data.stock[itemName] = data.stock[itemName] + quantity;
-            Json.writeToJson(data);
+            json.writeToJson(data);
             return true;
         }
 
-        public static bool decreaseQuantityOfItem(string itemName, int quantity = 1){
-            if(!Stock.checkContainsItem(itemName)){
+        public bool decreaseQuantityOfItem(string itemName, int quantity = 1){
+            if(!checkContainsItem(itemName)){
                 return false;
             }
-            var data = Json.readFromJson();
+            var data = json.readFromJson();
             int updatedQuantity = data.stock[itemName] - quantity;
             if(updatedQuantity <= 0 ){
                 data.stock.Remove(itemName);
             }
             else data.stock[itemName] = updatedQuantity;
 
-            Json.writeToJson(data);
+            json.writeToJson(data);
             return true;
         }
 
-        public static void updateQuantityOfItem(string itemName, int quantity){
-            if(!Stock.checkContainsItem(itemName)){
-                Stock.addItem(itemName, quantity);
+        public void updateQuantityOfItem(string itemName, int quantity){
+            if(!checkContainsItem(itemName)){
+                addItem(itemName, quantity);
                 return;
             }
-            var data = Json.readFromJson();
+            var data = json.readFromJson();
             if(quantity <= 0 ){
                 data.stock.Remove(itemName);
             }
             else data.stock[itemName] = quantity;
-            Json.writeToJson(data);
+            json.writeToJson(data);
         }
 
-        public static bool addItem(string itemName, int quantity = 1){
-            if(Stock.checkContainsItem(itemName)){
+        public bool addItem(string itemName, int quantity = 1){
+            if(checkContainsItem(itemName)){
                 return false;
             }
-            var data = Json.readFromJson();
+            var data = json.readFromJson();
             if(quantity <= 0){
                 return false;
             }
             data.stock[itemName] = quantity;
-            Json.writeToJson(data);
+            json.writeToJson(data);
             return true;
         }
 
-        public static bool deleteItem(string itemName){
-            if(!Stock.checkContainsItem(itemName)){
+        public bool deleteItem(string itemName){
+            if(!checkContainsItem(itemName)){
                 return false;
             }
-            var data = Json.readFromJson();
+            var data = json.readFromJson();
             data.stock.Remove(itemName);
-            Json.writeToJson(data);
+            json.writeToJson(data);
             return true;
         }
 
         // Getters
-        public static int getQuantityOfAnItem(string itemName){
-            if(!Stock.checkContainsItem(itemName)){
+        public int getQuantityOfAnItem(string itemName){
+            if(!checkContainsItem(itemName)){
                 return -1;
             }
 
-            var data = Json.readFromJson();  
+            var data = json.readFromJson();  
             return data.stock[itemName];
         }
 
-        public static Dictionary<string, int> getQuantities(){
-            var data = Json.readFromJson();
+        public Dictionary<string, int> getQuantities(){
+            var data = json.readFromJson();
             return data.stock;
         }
 
-        public static bool checkContainsItem(string itemName){
-            var data = Json.readFromJson();
+        public bool checkContainsItem(string itemName){
+            var data = json.readFromJson();
             return data.stock.ContainsKey(itemName);
         }
 
-        public static Dictionary<string, int> findItemsWhereQuantityIsGreaterThan(int quantity){
-            var data = Json.readFromJson();
+        public Dictionary<string, int> findItemsWhereQuantityIsGreaterThan(int quantity){
+            var data = json.readFromJson();
 
             Dictionary<string, int> filteredItems = data.stock.Where(item => item.Value > quantity).ToDictionary(item => item.Key, item => item.Value);
             return filteredItems;
         }
 
-        public static Dictionary<string, int> findItemsWhereQuantityIsLessThan(int quantity){
-            var data = Json.readFromJson();
+        public Dictionary<string, int> findItemsWhereQuantityIsLessThan(int quantity){
+            var data = json.readFromJson();
 
             Dictionary<string, int> filteredItems = data.stock.Where(item => item.Value < quantity).ToDictionary(item => item.Key, item => item.Value);
             return filteredItems;
         }
 
-        public static Dictionary<string, int> findItemsWhereQuantityIsEqualTo(int quantity){
-            var data = Json.readFromJson();
+        public Dictionary<string, int> findItemsWhereQuantityIsEqualTo(int quantity){
+            var data = json.readFromJson();
 
             Dictionary<string, int> filteredItems = data.stock.Where(item => item.Value == quantity).ToDictionary(item => item.Key, item => item.Value);
             return filteredItems;
